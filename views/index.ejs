@@ -1,0 +1,90 @@
+<%- include("./partials/header") %>
+
+<div class="container">
+    <div class="jumbotron">
+      
+        <h2>Welcome to user registration system</h2>
+        <hr>
+        <br>
+        <a href="/users" class="btn btn-primary">Login or register</a>
+        
+    </div>
+
+    <h3>List of registered usernames</h3>
+
+ <table class="table table-hover">
+   <tr>    
+      <th>Username</th>
+      <th>Email</th>
+      <th>Date registered</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tbody>
+       <% userdata.forEach(function(user) { %>
+       <tr>
+          <td><%= user.username %></td>         
+          <td><%= user.email %></td>
+          <td><%= moment(user.createdAt).format('DD / MM / YYYY'); %></td>
+          <td> 
+               
+               <a href="/users/<%= user._id %>" class="btn btn-primary">Details</a>
+               
+         
+          </td>
+
+         <td>
+         <form action="/users/<%= user._id %>?_method=DELETE" method="POST">
+           <button type="submit" class="btn btn-danger">Delete</button> 
+         </form>
+         
+         </td>
+         
+       </tr> 
+       <% }); %>
+    </tbody>
+
+    </table>
+  
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Enter your details to register</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <form action="/" method="POST">
+       <div class="modal-body">      
+              
+         <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="user name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+        </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>               
+                   
+                     <button type="submit" class="btn btn-primary">Update</button>
+               
+                 </div>
+       </div>
+       </form>
+     
+     </div>
+   </div>
+ </div>
+
+<%- include("./partials/footer") %>
